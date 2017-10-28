@@ -4,7 +4,7 @@ import middleware from '../middleware';
 import initalizeDb from '../db';
 import user from '../controller/user';
 import account from '../controller/account';
-import channel from '../controller/event';
+import event from '../controller/event';
 
 let router = express();
 
