@@ -8,10 +8,14 @@ import { authenticate } from '../middleware/authMiddleware';
 export default({ config, db }) => {
   let api = Router();
 
-  // '/v1/message/add' - Create
+  // '/v1/event/add' - Create
   api.post('/add', authenticate, (req, res) => {
     let newEvent = new Event();
-    newEvent.
+    newEvent.eventDescription = req.body.eventDescription;
+    newEvent.eventName = req.body.eventName;
+    newEvent.dateTime = req.body.dateTime;
+    newEvent.userId = req.body.userId;
+
 
     newEvent.save(err => {
       if (err) {
@@ -36,6 +40,17 @@ export default({ config, db }) => {
         res.status(200).json({ message: 'Event updated' });
       });
     });
+  });
+
+  // '/v1/message/byChannel/:channelId'
+  api.get('/byEvent/:userId', authenticate, (req, res) => {
+    Message
+      .find({ 'userId' : req.params.userId }, (err, messages) => {
+        if(err) {
+          res.status(500).json({ message: err });
+        }
+        res.status(200).json(messages);
+      });
   });
 
   // '/vq/message/:id' -Delete
