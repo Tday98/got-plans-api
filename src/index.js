@@ -45,17 +45,18 @@ app.get('/', (req, res) => {
 io.on('connection', function(client) {
   console.log('a user is connected');
   // Listening for the creation of a new event.
-  client.on('newEvent', function(eventDescription, eventName, dateTime, userId) {
+  client.on('newEvent', function(eventName, eventDescription, eventLocation, eventDate, userId) {
     // Create Event
     let newEvent = new Event({
-      eventDescription: eventDescription,
       eventName: eventName,
-      dateTime: dateTime,
+      eventDescription: eventDescription,
+      eventLocation: eventLocation,
+      eventDate: eventDate,
       userId: userId
     });
     newEvent.save(function(err, event) {
       console.log('new event created');
-      io.emit("event created", event.eventDescription, event.eventName, event.dateTime, event.userId);
+      io.emit("newEvent", event.eventName, event.eventDescription, event.eventLocation, event.eventDate, event.userId);
     });
   });
 });
