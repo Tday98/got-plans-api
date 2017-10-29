@@ -13,6 +13,7 @@ export default({ config, db }) => {
     let newEvent = new Event();
     newEvent.eventDescription = req.body.eventDescription;
     newEvent.eventName = req.body.eventName;
+    newEvent.eventLocation = req.body.eventLocation;
     newEvent.dateTime = req.body.dateTime;
     newEvent.userId = req.body.userId;
 
